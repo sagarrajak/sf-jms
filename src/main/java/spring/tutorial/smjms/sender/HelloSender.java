@@ -32,24 +32,24 @@ public class HelloSender {
         jmsTemplate.convertAndSend(JmsConfig.MY_QUEUE, message);
     }
 
-    @Scheduled(fixedRate = 10000)
-    public void sendAndReceiveMessage() throws JMSException {
-        HelloWordMessage message = HelloWordMessage
-                .builder()
-                .id(UUID.randomUUID()).message("send and waiting to receive").build();
-        Message receive = jmsTemplate.sendAndReceive(JmsConfig.SEND_RECEIVE_QUEUE, new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                TextMessage textMessage = null;
-                try {
-                    textMessage = session.createTextMessage(objectMapper.writeValueAsString(message));
-                    textMessage.setStringProperty("_type", "spring.tutorial.smjms.models.HelloWordMessage");
-                    return textMessage;
-                } catch (JsonProcessingException e) {
-                    throw new JMSException(e.getMessage());
-                }
-            }
-        });
-        System.out.println(receive.getBody(String.class));
-    }
+//    @Scheduled(fixedRate = 10000)
+//    public void sendAndReceiveMessage() throws JMSException {
+//        HelloWordMessage message = HelloWordMessage
+//                .builder()
+//                .id(UUID.randomUUID()).message("send and waiting to receive").build();
+//        Message receive = jmsTemplate.sendAndReceive(JmsConfig.SEND_RECEIVE_QUEUE, new MessageCreator() {
+//            @Override
+//            public Message createMessage(Session session) throws JMSException {
+//                TextMessage textMessage = null;
+//                try {
+//                    textMessage = session.createTextMessage(objectMapper.writeValueAsString(message));
+//                    textMessage.setStringProperty("_type", "spring.tutorial.smjms.models.HelloWordMessage");
+//                    return textMessage;
+//                } catch (JsonProcessingException e) {
+//                    throw new JMSException(e.getMessage());
+//                }
+//            }
+//        });
+//        System.out.println(receive.getBody(String.class));
+//    }
 }

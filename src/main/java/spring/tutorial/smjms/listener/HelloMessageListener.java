@@ -21,19 +21,18 @@ public class HelloMessageListener {
     private final JmsTemplate jmsTemplate;
     @JmsListener(destination = JmsConfig.MY_QUEUE)
     public void listen(@Payload HelloWordMessage helloWordMessage , @Headers MessageHeaders headers, Message message) {
-//        System.out.println(helloWordMessage);
-//        System.out.println("Got new message");
-//        throw new RuntimeException("sddsdsd");
-    }
-
-    @JmsListener(destination = JmsConfig.SEND_RECEIVE_QUEUE)
-    public void listenForHellow(@Payload HelloWordMessage helloWordMessage , @Headers MessageHeaders headers, Message message) throws JMSException {
-//        System.out.println("simple message received!");
         System.out.println(helloWordMessage);
-        HelloWordMessage messageRepl = HelloWordMessage
-                .builder()
-                .id(UUID.randomUUID()).message("simple message received sending ack!").build();
-
-        jmsTemplate.convertAndSend(message.getJMSReplyTo(), messageRepl);
+//        System.out.println("Got new message");
     }
+
+//    @JmsListener(destination = JmsConfig.SEND_RECEIVE_QUEUE)
+//    public void listenForHellow(@Payload HelloWordMessage helloWordMessage , @Headers MessageHeaders headers, Message message) throws JMSException {
+////        System.out.println("simple message received!");
+//        System.out.println(helloWordMessage);
+//        HelloWordMessage messageRepl = HelloWordMessage
+//                .builder()
+//                .id(UUID.randomUUID()).message("simple message received sending ack!").build();
+//
+//        jmsTemplate.convertAndSend(message.getJMSReplyTo(), messageRepl);
+//    }
 }
